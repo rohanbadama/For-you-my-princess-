@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romantic Tap Messages</title>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(120deg, #ffe6f0, #ffd9e6);
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#headlineBox {
+  padding: 15px 25px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff4d99;
+  text-shadow: 2px 2px 8px #fff, -2px -2px 8px #ffb6c1;
+  transition: all 0.5s ease;
+  margin-bottom: 20px;
+}
+#messageBox {
+  max-width: 90%;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #ff4d99;
+  line-height: 1.6;
+  transition: all 0.5s ease;
+}
+.hearts {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: url('https://i.imgur.com/O6U7K6H.png') no-repeat center center / cover;
+  pointer-events: none;
+  animation: floatHeart linear infinite;
+  opacity: 0.8;
+}
+@keyframes floatHeart {
+  0% { transform: translate(0, 0) scale(0.5); opacity:1;}
+  100% { transform: translate(var(--x), var(--y)) scale(1); opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div id="headlineBox">Tap me sweetheart 💖</div>
+<div id="messageBox"></div>
+
+<script>
+const messages = [
+  {headline: "Tap me sweetheart 💖", message: ""},
+  {headline: "Why She’s Special to You", message:"You’re not just another person in my life… you’re the one who feels meant for me. Something in you fits perfectly in places I didn’t even know were empty."},
+  {headline: "Why She’s Important", message:"You matter to me in ways I can’t replace. My day feels incomplete if even a single moment passes without you in it."},
+  {headline: "Why Only She Stands Out", message:"Other people exist, but you stand out without trying. Your presence has a purity and peace no one else carries."},
+  {headline: "Why You Love Only Her", message:"My heart chose you without hesitation, without confusion. It’s not a decision… it’s a feeling that keeps pulling me back to you."},
+  {headline: "Why You Imagine a Life With Her", message:"When I think of the future, your name naturally appears in it. Not because I forced it… but because loving you feels like the right place to stay."},
+  {headline: "Why She’s Your Everything", message:"I don’t need a thousand people around me — just you. You’re the peace, the comfort, the smile, and the home my heart returns to."},
+  {headline: "Why Your Love Never Decreases", message:"My love for you doesn’t fade with time… it deepens. The more I know you, the more reasons my heart finds to stay."},
+  {headline: "Why You Love Her As She Is", message:"I adore you exactly the way you are — every flaw, every softness. You don’t need to change; you’re already everything I prayed for quietly."},
+  {headline: "Why You Feel Safe With Her", message:"You’re the only person who gets my silence, my chaos, and my softness. With you, even my unspoken emotions feel understood."},
+  {headline: "Why She’s Enough for You", message:"I don’t look for anyone else because my heart doesn’t wander. It has already found its place — and that place is you."},
+  {headline: "So I love you 💖", message:""}
+];
+
+let index = 0;
+const headlineBox = document.getElementById('headlineBox');
+const messageBox = document.getElementById('messageBox');
+const bgMusic = document.getElementById('bgMusic');
+
+function nextMessage() {
+  if(index === 0){ bgMusic.play().catch(()=>{}); }
+  if(index < messages.length-1){
+    index++;
+    headlineBox.textContent = messages[index].headline;
+    messageBox.textContent = messages[index].message;
+    // Change box theme color slightly each tap
+    headlineBox.style.background = `rgba(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*180)},${Math.floor(Math.random()*200)},0.3)`;
+  }
+}
+
+document.body.addEventListener('click', nextMessage);
+
+// Heart particles
+function createHeart(){
+  const heart = document.createElement('div');
+  heart.className = 'hearts';
+  heart.style.left = Math.random()*100 + 'vw';
+  heart.style.top = Math.random()*100 + 'vh';
+  // Random direction
+  const x = (Math.random()*200-100)+'px';
+  const y = (Math.random()*200-100)+'px';
+  heart.style.setProperty('--x', x);
+  heart.style.setProperty('--y', y);
+  heart.style.animationDuration = (Math.random()*5 + 3)+'s';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart, 250);
+</script>
+
+</body>
+</html>
